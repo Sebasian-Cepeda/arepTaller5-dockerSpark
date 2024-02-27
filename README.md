@@ -1,4 +1,4 @@
-![image](https://github.com/Sebasian-Cepeda/arepTaller5-dockerSpark/assets/89321404/e6819262-179b-4bef-892f-ce09e7f4cdf7)# arepTaller5-dockerSpark
+# arepTaller5-dockerSpark
 
 # Descripción 
 para este laboratorio, se creara una imagen con algunas confoguraciones para virtualización con docker, para esto debemos subir la imagen a docker hub
