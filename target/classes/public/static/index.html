@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operaciones Matemáticas</title>
     <script>
-        function submitForm(operation) {
+        function operation(operation, event) {
+            event.preventDefault();
             var form = document.getElementById(operation + "_form");
             var input = form.querySelector("input[type=text]");
             var resultDiv = document.getElementById(operation + "_result");
@@ -24,8 +26,37 @@
             };
             xhr.send();
         }
+
+        function magnitudForm() {
+            var form = document.getElementById("magnitud_form");
+            var xInput = form.querySelector("#x_magnitud");
+            var yInput = form.querySelector("#y_magnitud");
+            var resultDiv = document.getElementById("magnitud_result");
+
+            // Obtener los valores de x e y
+            var xValue = xInput.value;
+            var yValue = yInput.value;
+
+            // Construir la URL con los parámetros de consulta
+            var url = form.action + "/" + xValue + "/" + yValue;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open(form.method, url, true);
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resultDiv.textContent = xhr.responseText;
+                } else {
+                    resultDiv.textContent = 'Error: ' + xhr.statusText;
+                }
+            };
+            xhr.onerror = function () {
+                resultDiv.textContent = 'Error de conexión';
+            };
+            xhr.send();
+        }
     </script>
 </head>
+
 <body>
     <h1>Operaciones</h1>
 
@@ -33,7 +64,7 @@
     <form id="sin_form" method="GET" action="/sin">
         <label for="angulo_sin">Ángulo (en grados):</label>
         <input type="text" id="angulo_sin" name="angulo">
-        <button type="button" onclick="submitForm('sin')">Calcular Seno</button>
+        <button type="submit" onclick="operation('sin', event)">Calcular Seno</button>
     </form>
     <div id="sin_result"></div>
 
@@ -41,7 +72,7 @@
     <form id="cos_form" method="GET" action="/cos">
         <label for="angulo_cos">Ángulo (en grados):</label>
         <input type="text" id="angulo_cos" name="angulo">
-        <button type="button" onclick="submitForm('cos')">Calcular Coseno</button>
+        <button type="submit" onclick="operation('cos', event)">Calcular Coseno</button>
     </form>
     <div id="cos_result"></div>
 
@@ -49,7 +80,7 @@
     <form id="palindrome_form" method="GET" action="/palindrome">
         <label for="palabra_palindrome">Palabra:</label>
         <input type="text" id="palabra_palindrome" name="palabra">
-        <button type="button" onclick="submitForm('palindrome')">Verificar Palíndromo</button>
+        <button type="submit" onclick="operation('palindrome', event)">Verificar Palíndromo</button>
     </form>
     <div id="palindrome_result"></div>
 
@@ -59,8 +90,9 @@
         <input type="text" id="x_magnitud" name="x">
         <label for="y_magnitud">Componente Y:</label>
         <input type="text" id="y_magnitud" name="y">
-        <button type="button" onclick="submitForm('magnitud')">Calcular Magnitud</button>
+        <button type="button" onclick="magnitudForm()">Calcular Magnitud</button>
     </form>
     <div id="magnitud_result"></div>
 </body>
+
 </html>

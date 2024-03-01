@@ -33,7 +33,7 @@ public class SparkWebServer {
             } catch (NumberFormatException e) {
                 return "Entrada invalida: '" + numStr + "'  no es un número valido";
             }
-            return "El seno de '" + numStr + "' es " + result;
+            return "El coseno de '" + numStr + "' es " + result;
         });
 
         // palindrome
